@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canChange(String start, String target) {
+        Queue<Pair<Character, Integer>> q1 =new LinkedList<>();
+        Queue<Pair<Character, Integer>> q2 = new LinkedList<>();
+        for (int i = 0; i < start.length(); i++) {
+            if (start.charAt(i) != '_') 
+                 q1.add(new Pair<>(start.charAt(i), i));
+            if (target.charAt(i) != '_') 
+                q2.add(new Pair<>(target.charAt(i), i));           
+        }
+        if (q1.size() != q2.size()) return false;
+        while (!q1.isEmpty()) {
+            Pair<Character, Integer> s = q1.poll();
+            Pair<Character, Integer> end = q2.poll();
+
+            char ch = s.getKey();
+            int i = s.getValue();
+            char c = end.getKey();
+            int j = end.getValue();
+            if (ch != c ||(ch == 'L' && i < j) ||(ch == 'R' && i > j)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
